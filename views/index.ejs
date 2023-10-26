@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Group Video Call</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="css/materialize.min.css">
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+    <div class="main-wrap">
+        <div class="call-wrap card" style="z-index: 99">
+
+            <div class="action-wrap" style="display: flex;flex-direction: column; justify-content: center; align-items: center;">
+                <div style="display:flex; justify-content:center;align-items:center;background-color:#090269;height:50px;width:260px;cursor: pointer;font-size:20px;align-self:center;color:white;margin-right:50px;border-radius:5px;" class="host-meeting">Host</div>
+                <div style="display:flex; justify-content:center;align-items:center;background-color:#0c033b;height:50px;width:260px;cursor: pointer;font-size:20px;align-self:center;color:white;border-radius:5px;" class="join-meeting">Join</div>
+            </div>
+
+        </div>
+
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="js/materialize.min.js"></script>
+    <script src="js/client.js"></script>
+    <script>
+
+        $(function(){
+            $(document).on("click",".host-meeting",function(){
+                let idNum=Math.floor(Math.random()*100000000);
+                let url = window.location.origin+"/meeting?meetingID="+idNum
+                window.location.replace(url)
+
+            })
+            $(document).on("click",".join-meeting",function(){
+                $(".action-wrap").empty().html('<div><form class="col s12"><input id="icon_prefix" type="text" class ="validate join-value"/> <button class="btn waes-effect waves-light teal darken-2 join-submit" type="submit" name="action"><i class="material-icons right">send</i></button></form> </div>')
+            })
+
+            $(document).on("click",".join-submit",function(e){
+                e.preventDefault();
+                var meetingVal=$("input.join-value").val()
+
+                if(meetingVal==="" ||meetingVal.length<8){
+                    alert("Invalid Meeting ID")
+                }else{
+                    let url=window.location.origin+"/meeting?meetingID="+meetingVal;
+                    window.location.replace(url);
+                }
+            })
+        })
+    
+        
+
+    </script>
+
+</body>
+
+</html>
